@@ -1,5 +1,6 @@
 const { httpError } = require('../helpers/handleError');
 const userModel = require('../models/users');
+var objectId = require('mongodb').ObjectID;
 
 const getAllUsers = async ( req, res ) => {
     try {
@@ -10,8 +11,26 @@ const getAllUsers = async ( req, res ) => {
     }
 }
 
-const getUser = ( req, res ) => {
+const getUser = async ( req, res ) => {
+    const { id }  = req.params;
+    const query = {
+        estado: true
+    }
 
+    if( id == "" ) {
+        res.status(500);
+        res.send({ error: "id no valido!!"});
+    }
+
+    try {
+        
+        const user = await userModel.findById(id);
+
+        res.json({user});
+
+    } catch (err) {
+        httpError(res,err);
+    }
 }
 
 const createUser = async ( req, res ) => {
@@ -38,16 +57,69 @@ const createUser = async ( req, res ) => {
     }
 }
 
-const activeUser = ( req, res ) => {
+const activeUser = async ( req, res ) => {
+    const { id } = req.params;
+    const filter = { _id: id };
+    const update = { active: true };
+    
+    try {
+
+       let user = await userModel.findOneAndUpdate( filter, update, {
+           new: true
+       });
+       
+       if ( user !== null ) {
+            res.status(200);
+            res.send({ user: user });
+        }
+
+    } catch (err) {
+        httpError(res,err);
+    }
 
 }
 
-const updateUser = ( req, res ) => {
+const updateUser = async ( req, res ) => {
+    const { id } = req.params;
+    const { firstName, lastName, age, address, email, estado, active, password } = req.body;
+    const filter = { _id: id };
+    const update = { firstName, lastName, age, address, email, estado, active, password };
+    
+    try {
 
+       let user = await userModel.findOneAndUpdate( filter, update, {
+           new: true
+       });
+       
+       if ( user !== null ) {
+            res.status(200);
+            res.send({ user: user });
+        }
+
+    } catch (err) {
+        httpError(res,err);
+    }
 }
 
-const deleteUser = ( req, res ) => {
+const deleteUser = async ( req, res ) => {
+    const { id } = req.params;
+    const filter = { _id: id };
+    const update = { estado: false };
+    
+    try {
 
+       let user = await userModel.findOneAndUpdate( filter, update, {
+           new: true
+       });
+       
+       if ( user !== null ) {
+            res.status(200);
+            res.send({});
+        }
+
+    } catch (err) {
+        httpError(res,err);
+    }
 }
 
 module.exports = { getAllUsers, getUser, createUser, activeUser, updateUser, deleteUser };
