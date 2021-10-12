@@ -11,4 +11,8 @@ const generateHashPassword = (saltRounds,password) => {
     return hash;
 }
 
-module.exports = { generateHashPassword };
+const verifyPassword = async ( pass, hash ) => {
+    return bcrypt.compareSync(pass, hash);
+}
+
+module.exports = { generateHashPassword, verifyPassword };

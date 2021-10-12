@@ -17,7 +17,7 @@ const getUser = ( req, res ) => {
 const createUser = async ( req, res ) => {
     
     try {
-        const { firstName, lastName, age, address, email, active, password } = req.body;
+        const { firstName, lastName, age, address, email, estado, active, password } = req.body;
         const saltRounds = 10;
         const { generateHashPassword } = require('../helpers/handlePassword');
         const passwordHashed =  generateHashPassword(saltRounds,password);
@@ -27,7 +27,8 @@ const createUser = async ( req, res ) => {
             lastName, 
             age, 
             address, 
-            email, 
+            email,
+            estado, 
             active,
             password: passwordHashed
         });
