@@ -9,6 +9,10 @@ const UserScheme = new mongoose.Schema({
         type: String,
         unique: true 
     },
+    estado: {
+        type: Boolean,
+        default: true
+    },
     active: {
         type: Boolean,
         default: false
