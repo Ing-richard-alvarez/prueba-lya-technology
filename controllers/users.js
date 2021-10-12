@@ -15,8 +15,13 @@ const getUser = ( req, res ) => {
 }
 
 const createUser = async ( req, res ) => {
+    
     try {
         const { firstName, lastName, age, address, email, active, password } = req.body;
+        const saltRounds = 10;
+        const { generateHashPassword } = require('../helpers/handlePassword');
+        const passwordHashed =  generateHashPassword(saltRounds,password);
+
         const resDetail = await userModel.create({
             firstName, 
             lastName, 
@@ -24,7 +29,7 @@ const createUser = async ( req, res ) => {
             address, 
             email, 
             active,
-            password
+            password: passwordHashed
         });
         res.send({ data: resDetail });
     } catch (error) {
