@@ -1,4 +1,5 @@
-const { httpError } = require('../helpers/handleError');
+import { httpError } from '../helpers/handleError';
+
 const userModel = require('../models/users');
 
 const getAllUsers = async ( req, res ) => {

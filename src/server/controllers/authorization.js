@@ -1,7 +1,9 @@
-const { verifyPassword } = require('../helpers/handlePassword');
-const { httpError } = require('../helpers/handleError');
+import { verifyPassword } from '../helpers/handlePassword';
+import { httpError } from '../helpers/handleError';
+import { tokenSign } from '../helpers/generateToken';
+
 const userModel = require('../models/users');
-const { tokenSign } = require('../helpers/generateToken');
+
 
 const login =  ( req, res ) => {
     const { email, password } = req.body;
