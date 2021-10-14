@@ -1,6 +1,5 @@
 const { httpError } = require('../helpers/handleError');
 const userModel = require('../models/users');
-var objectId = require('mongodb').ObjectID;
 
 const getAllUsers = async ( req, res ) => {
     try {
@@ -35,6 +34,8 @@ const getUser = async ( req, res ) => {
 
 const createUser = async ( req, res ) => {
     
+    console.log(req);
+
     try {
         const { firstName, lastName, age, address, email, estado, active, password } = req.body;
         const saltRounds = 10;

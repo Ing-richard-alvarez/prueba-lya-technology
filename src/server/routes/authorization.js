@@ -1,4 +1,5 @@
-var express = require('express');
+import express from 'express';
+
 var router = express.Router();
 const { login, logout } = require('../controllers/authorization');
 
