@@ -64,7 +64,7 @@ const FormRegister = () => {
             })
             return;
         } else {
-            console.log(passwordValidate.password);
+            //console.log(passwordValidate.password);
             setFormData({
                 ...formData,
                 password: passwordValidate.password
@@ -84,7 +84,7 @@ const FormRegister = () => {
                 showConfirmButton: false,
                 timer: 2000
             }).then(( result ) =>{
-                window.location.href="/login";
+                //window.location.href="/login";
             });
           })
           .catch(function (error) {

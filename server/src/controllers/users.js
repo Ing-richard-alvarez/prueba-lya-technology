@@ -4,7 +4,7 @@ const userModel = require('../models/users');
 
 const getAllUsers = async ( req, res ) => {
     try {
-        const allUsers = await userModel.find({});
+        const allUsers = await userModel.find({estado:true});
         res.send({ list: allUsers });
     } catch (error) {
         httpError(res,error);
@@ -62,8 +62,12 @@ const createUser = async ( req, res ) => {
 const activeUser = async ( req, res ) => {
     const { id } = req.params;
     const filter = { _id: id };
-    const update = { active: true };
+    const {active} = req.body;
+    const update = { active };
     
+    console.log(req.params);
+    console.log(req.body);
+
     try {
 
        let user = await userModel.findOneAndUpdate( filter, update, {

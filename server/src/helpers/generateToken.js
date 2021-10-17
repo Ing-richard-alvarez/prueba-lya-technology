@@ -7,7 +7,7 @@ const tokenSign = async ( user ) => {
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: "2m"
+            expiresIn: "1d"
         }
     );
 }

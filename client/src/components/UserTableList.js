@@ -1,7 +1,6 @@
 import React, {  useEffect, useState } from "react";
 import axios from "axios";
 import env from 'react-dotenv';
-import jwt from 'jsonwebtoken';
 import Swal from 'sweetalert2';
 import ChangeStatusUser from "./ChangeStatusUser";
 import DeleteUser from "./DeleteUser";
@@ -12,54 +11,40 @@ const UserTableList = () => {
         users: []
     });
 
-    const verifyToken = async ( token ) => {
-        try {
-            return jwt.verify(token,env.JWT_SECRET);
-        } catch (e) {
-            return null;
-        }
-    }
-
     useEffect(() => {
         const token = localStorage.getItem('tokenSession');
-      
-        //Validate token
-        verifyToken(token)
-            .then(tokenData => {
+        
+        let config = {
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+        }
 
-                //console.log(tokenData);
-
-                let config = {
-                    headers: {
-                      'Authorization': 'Bearer ' + token
-                    }
+        // send request to server
+        axios.get( 
+            env.API_URL_BASE+'/users',
+            config
+          )
+          .then( ( response ) => {
+            setUserList({users: response.data.list});
+          } )
+          .catch(( error ) => {
+                const { status, data } = error.response
+                //console.log(error.response);
+                if(status === 409) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.error,
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).then(( result ) =>{
+                        window.location.href="/login";
+                    });
                 }
-
-                // send request to server
-                if(tokenData._id !== undefined) {
-                    axios.get( 
-                        env.API_URL_BASE+'/users',
-                        config
-                      )
-                      .then( ( response ) => {
-                        setUserList({users: response.data.list});
-                      } )
-                    ;
-                }
-
-            }).catch(err => {
-                console.log('error ',err);
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: "Please, Login again!",
-                    showConfirmButton: false,
-                    timer: 3000
-                }).then(( result ) =>{
-                    window.location.href="/login";
-                });
-            })
+                
+          })
         ;
         
     },[]);
