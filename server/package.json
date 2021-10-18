@@ -33,6 +33,8 @@
     "react-dom": "^17.0.2",
     "react-engine": "^4.5.1",
     "react-router-dom": "^5.3.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
     "sweetalert2": "^11.1.8"
   },
   "devDependencies": {
