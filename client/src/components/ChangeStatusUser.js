@@ -29,11 +29,11 @@ const ChangeStatusUser =  (prop) => {
             confirmButtonText: (activeUser.active)? 'Yes, disable it!': 'Yes, enable it!',
           }).then(async (result) => {
             if (result.isConfirmed) {
-              await callService(_id);
+              await callService(_id)
             }
           })
         ;
-
+        
     }
 
 
@@ -61,6 +61,8 @@ const ChangeStatusUser =  (prop) => {
                 title: (activeUser.active)?'User disabled successfully' : 'User enabled successfully',
                 showConfirmButton: false,
                 timer: 2000
+            }).then(res => {
+                window.location.reload();
             })
         }).catch(error => {
             const { status, data } = error.response

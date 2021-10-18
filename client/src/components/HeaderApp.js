@@ -54,9 +54,9 @@ const HeaderApp = () => {
             return (
                 <form className="form-inline">
                     <Link  className="btn btn-outline-primary my-2 mr-sm-0 mr-md-2 my-sm-0" type="button" to="/login">
-                        Iniciar Sesion
+                        Login
                     </Link>
-                    <Link className="btn btn-outline-success my-2 my-sm-0" type="button"to="/register">Crear Usuario</Link>
+                    <Link className="btn btn-outline-success my-2 my-sm-0" type="button"to="/register">Register</Link>
                 </form>
             )
         }

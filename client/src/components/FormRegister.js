@@ -89,6 +89,11 @@ const FormRegister = () => {
           })
           .catch(function (error) {
             console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.error
+            })
           })
         ;
     }
@@ -98,7 +103,7 @@ const FormRegister = () => {
             <div className=" col-12 col-md-6">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="firstName">Nombre</label>
+                        <label htmlFor="firstName">First Name</label>
                         <input 
                             type="text" 
                             className="form-control" 
@@ -109,7 +114,7 @@ const FormRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="lastName">Apellido</label>
+                        <label htmlFor="lastName">Last Name</label>
                         <input 
                             type="text" 
                             className="form-control" 
@@ -131,7 +136,7 @@ const FormRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="age">Edad</label>
+                        <label htmlFor="age">Age</label>
                         <input 
                             type="number" 
                             className="form-control" 
@@ -143,7 +148,7 @@ const FormRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="address">Dirección</label>
+                        <label htmlFor="address">Address</label>
                         <input 
                             type="text" 
                             className="form-control" 
@@ -154,7 +159,7 @@ const FormRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Contraseña</label>
+                        <label htmlFor="password">Password</label>
                         <input 
                             type="password" 
                             className="form-control" 
@@ -165,7 +170,7 @@ const FormRegister = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="confirmPassword">Confirmar Contraseña</label>
+                        <label htmlFor="confirmPassword">Confirm Password</label>
                         <input 
                             type="password" 
                             className="form-control" 
