@@ -42,6 +42,8 @@ const DeleteUser = (prop) => {
                 title: 'User deleted successfully',
                 showConfirmButton: false,
                 timer: 2000
+            }).then(res => {
+                window.location.reload();
             })
         }).catch(err => {
 

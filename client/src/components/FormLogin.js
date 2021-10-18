@@ -1,16 +1,41 @@
-import React, { useState } from "react";
-import dotenv from 'dotenv'
+import React, { useEffect,useState } from "react";
+import jwt from 'jsonwebtoken';
+import env from 'react-dotenv'
 import axios from "axios";
 import Swal from "sweetalert2";
 
 const FormLogin = () => {
 
-    dotenv.config();
-
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
+
+    const token = localStorage.getItem('tokenSession');
+
+    const verifyToken = async ( token ) => {
+        try {
+            return jwt.verify(token,env.JWT_SECRET);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    useEffect(()=>{
+        verifyToken(token)
+        .then(res => {
+            //console.log(res)
+            if(
+                res !== null &&
+                res._id !== null
+            ) {
+                window.location.href="/user-list"
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    },[token]);
 
     const handleInputChange = (e) => {
         e.preventDefault();

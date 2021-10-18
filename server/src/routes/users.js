@@ -9,6 +9,8 @@ const { validateUser } = require('../middleware/validate-user');
  * @swagger
  * /api/v1/users:
  *  get:
+ *      tags:
+ *      - "Users"
  *      summary: Get All Users
  *      description: Get all users registered at the database
  *      produces:
@@ -24,6 +26,8 @@ router.get('/', checkAuth, getAllUsers);
  * @swagger
  * /api/v1/users/{id}:
  *  get:
+ *      tags:
+ *      - "Users"
  *      summary: Get User
  *      description: Get a specific user
  *      produces:
@@ -71,15 +75,44 @@ router.get('/:id',[
  * @swagger
  * /api/v1/users:
  *  post:
+ *      tags:
+ *      - "Users"
  *      summary: Create a user
- *      requestBody:
- *          content:
- *              application/json:
- *              schema:
- *                  $ref: '#/definitions/User'
+ *      description: Create a new user in the system
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *      - in: "body"
+ *        name: "body"
+ *        description: "created user object"
+ *        required: true
+ *        schema: 
+ *           $ref: "#/definitions/User"
+ *      responses:
+ *        200:
+ *          description: OK
 */
 router.post('/',createUser);
-
+/**
+ * @swagger
+ * /api/v1/users/{id}:
+ *  put:
+ *      tags:
+ *      - "Users"
+ *      summary: update User
+ *      description: Update a specific user
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: id unique of the user
+ *      responses:
+ *       200:
+ *        schema:
+ *          $ref: '#/definitions/User'
+ *        type: json
+*/
 router.put('/:id', [
     checkAuth,
     check('id','Id no valido para el sistema').isMongoId(),
@@ -87,6 +120,24 @@ router.put('/:id', [
     validateUser
 ], updateUser);
 
+/**
+ * @swagger
+ * /api/v1/users/{id}/active:
+ *  patch:
+ *      tags:
+ *      - "Users"
+ *      summary: Active/Inactive User
+ *      description: Active/Inactive a  specific user
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: id unique of the user
+ *      responses:
+ *       200:
+ *        type: json
+*/
 router.patch('/:id/active', [
     checkAuth,
     check('id','Id no valido para el sistema').isMongoId(),
@@ -94,6 +145,24 @@ router.patch('/:id/active', [
     validateUser
 ], activeUser);
 
+/**
+ * @swagger
+ * /api/v1/users/{id}:
+ *  delete:
+ *      tags:
+ *      - "Users"
+ *      summary: Delete User
+ *      description: Delete a  specific user
+ *      produces:
+ *          - application/json
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            description: id unique of the user
+ *      responses:
+ *       200:
+ *        type: json
+*/
 router.delete('/:id', [
     checkAuth,
     check('id','Id no valido para el sistema').isMongoId(),
